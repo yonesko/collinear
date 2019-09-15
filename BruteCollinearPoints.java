@@ -83,5 +83,17 @@ public class BruteCollinearPoints {
             throw new RuntimeException();
         }
         System.out.println(Arrays.toString(points.segments()));
+        points = new BruteCollinearPoints(new Point[] {
+                new Point(4, 4),
+                new Point(2, 2),
+                new Point(1, 1),
+                new Point(14, 4),
+                new Point(11, 1),
+                new Point(13, 3),
+                });
+        if (points.numberOfSegments() != 0) {
+            throw new RuntimeException();
+        }
+        System.out.println(Arrays.toString(points.segments()));
     }
 }
