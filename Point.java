@@ -9,6 +9,7 @@
  ******************************************************************************/
 
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Comparator;
 
@@ -113,6 +114,25 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+        slopeTest();
+    }
+
+    private static void slopeTest() {
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 2);
+        if (p1.slopeTo(p2) != 1.0) {
+            throw new RuntimeException("slope");
+        }
+        if (p2.slopeTo(p1) != 1.0) {
+            throw new RuntimeException("slope");
+        }
+
+        for (int i = 0; i < 100; i++) {
+            p1 = new Point(StdRandom.uniform(1000000) + 1, StdRandom.uniform(1000000) + 1);
+            p2 = new Point(StdRandom.uniform(1000000) + 1, StdRandom.uniform(1000000) + 1);
+            if (p2.slopeTo(p1) != p1.slopeTo(p2)) {
+                throw new RuntimeException("slope");
+            }
+        }
     }
 }
