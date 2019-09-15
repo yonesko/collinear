@@ -115,7 +115,10 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) {
         slopeTest();
+        compareToTest();
+    }
 
+    private static void compareToTest() {
         Point p1 = new Point(1, 1);
         Point p2 = new Point(2, 2);
         Point p3 = new Point(2, 2);
