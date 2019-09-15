@@ -13,7 +13,7 @@ public class BruteCollinearPoints {
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) throw new IllegalArgumentException();
-        segments = new LineSegment[points.length / 4];
+        segments = new LineSegment[points.length];
         Point[] aux = new Point[4];
 
         for (int i = 0; i < points.length - 3; i++) {
@@ -93,6 +93,29 @@ public class BruteCollinearPoints {
                 });
         if (points.numberOfSegments() != 0) {
             throw new RuntimeException();
+        }
+        System.out.println(Arrays.toString(points.segments()));
+        points = new BruteCollinearPoints(new Point[] {
+                new Point(1, 1),
+                new Point(2, 2),
+                new Point(3, 3),
+                new Point(4, 4),
+                new Point(2, 4),
+                new Point(4, 2),
+                new Point(5, 1),
+                });
+        if (points.numberOfSegments() != 2) {
+            throw new RuntimeException(Arrays.toString(points.segments()));
+        }
+        System.out.println(Arrays.toString(points.segments()));
+        points = new BruteCollinearPoints(new Point[] {
+                new Point(1, 2),
+                new Point(3, 2),
+                new Point(2, 2),
+                new Point(4, 2)
+        });
+        if (points.numberOfSegments() != 1) {
+            throw new RuntimeException(Arrays.toString(points.segments()));
         }
         System.out.println(Arrays.toString(points.segments()));
     }
