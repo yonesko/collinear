@@ -12,6 +12,12 @@ public class FastCollinearPoints {
     private LineSegment[] lineSegmentsI;
 
     public FastCollinearPoints(Point[] points) {
+        if (points == null) throw new IllegalArgumentException("points is null");
+        for (Point point : points) {
+            if (point == null) {
+                throw new IllegalArgumentException("point is null");
+            }
+        }
         points = Arrays.copyOf(points, points.length);
         validate(points);
         Point[] aux = Arrays.copyOf(points, points.length);
@@ -41,12 +47,6 @@ public class FastCollinearPoints {
     }
 
     private void validate(Point[] points) {
-        if (points == null) throw new IllegalArgumentException("points is null");
-        for (Point point : points) {
-            if (point == null) {
-                throw new IllegalArgumentException("point is null");
-            }
-        }
         Arrays.sort(points);
         for (int i = 0; i < points.length - 1; i++) {
             if (points[i].compareTo(points[i + 1]) == 0) {

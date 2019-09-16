@@ -13,6 +13,12 @@ public class BruteCollinearPoints {
     private LineSegment[] lineSegmentsI;
 
     public BruteCollinearPoints(Point[] points) {
+        if (points == null) throw new IllegalArgumentException("points is null");
+        for (Point point : points) {
+            if (point == null) {
+                throw new IllegalArgumentException("point is null");
+            }
+        }
         points = Arrays.copyOf(points, points.length);
         validate(points);
         for (int i = 0; i < points.length - 3; i++) {
@@ -33,12 +39,6 @@ public class BruteCollinearPoints {
     }
 
     private void validate(Point[] points) {
-        if (points == null) throw new IllegalArgumentException("points is null");
-        for (Point point : points) {
-            if (point == null) {
-                throw new IllegalArgumentException("point is null");
-            }
-        }
         Arrays.sort(points);
         for (int i = 0; i < points.length - 1; i++) {
             if (points[i].compareTo(points[i + 1]) == 0) {
