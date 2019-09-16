@@ -6,50 +6,55 @@
 
 import java.util.Arrays;
 
-public class BruteCollinearPoints {
-
+public class FastCollinearPoints {
     private Node head, last;
     private int count;
 
-    public BruteCollinearPoints(Point[] points) {
-        if (points == null) throw new IllegalArgumentException();
-        Point[] aux = new Point[4];
-
-        for (int i = 0; i < points.length - 3; i++) {
-            aux[0] = points[i];
-            for (int j = i + 1; j < points.length - 2; j++) {
-                aux[1] = points[j];
-                for (int k = j + 1; k < points.length - 1; k++) {
-                    aux[2] = points[k];
-                    for (int l = k + 1; l < points.length; l++) {
-                        aux[3] = points[l];
-                        if (aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[2])
-                                && aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[3])) {
-                            Arrays.sort(aux);
-                            if (head == null) {
-                                head = new Node(new LineSegment(aux[0], aux[3]));
-                                last = head;
-                            }
-                            else {
-                                final Node node = new Node(new LineSegment(aux[0], aux[3]));
-                                last.next = node;
-                                last = node;
-                            }
-                            count++;
-                        }
+    public FastCollinearPoints(Point[] points) {
+        Point[] aux = Arrays.copyOf(points, points.length);
+        for (Point point : points) {
+            Arrays.sort(aux, point.slopeOrder());
+            int l = -1, r = 0;
+            for (int i = 0; i < aux.length - 1; i++) {
+                if (point.slopeTo(aux[i]) == point.slopeTo(aux[i + 1])) {
+                    if (l == -1) l = i;
+                    r = i + 1;
+                }
+                else if (l != -1 && r - l + 1 >= 4) {
+                    Point[] ls = new Point[r - l + 1];
+                    for (int j = 0; j < ls.length; j++) {
+                        ls[j] = aux[l + j];
                     }
+                    Arrays.sort(ls);
+                    Node node = new Node(new LineSegment(ls[0], ls[ls.length - 1]));
+                    if (head == null) {
+                        head = last = node;
+                    }
+                    else {
+                        last.next = node;
+                        last = node;
+                    }
+                    count++;
+                    l = -1;
                 }
             }
-        }
-
-    }
-
-    private static class Node {
-        private final LineSegment segment;
-        private Node next;
-
-        private Node(LineSegment segment) {
-            this.segment = segment;
+            if (l != -1 && r - l + 1 >= 4) {
+                Point[] ls = new Point[r - l + 1];
+                for (int j = 0; j < ls.length; j++) {
+                    ls[j] = aux[l + j];
+                }
+                Arrays.sort(ls);
+                Node node = new Node(new LineSegment(ls[0], ls[ls.length - 1]));
+                if (head == null) {
+                    head = last = node;
+                }
+                else {
+                    last.next = node;
+                    last = node;
+                }
+                count++;
+                l = -1;
+            }
         }
     }
 
@@ -67,6 +72,15 @@ public class BruteCollinearPoints {
             ans[i] = node.segment;
         }
         return ans;
+    }
+
+    private static class Node {
+        private final LineSegment segment;
+        private Node next;
+
+        private Node(LineSegment segment) {
+            this.segment = segment;
+        }
     }
 
     public static void main(String[] args) {
