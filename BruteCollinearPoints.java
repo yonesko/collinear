@@ -76,6 +76,7 @@ public class BruteCollinearPoints {
             return lineSegmentsI;
         }
         lineSegmentsI = getLineSegmentsI();
+        head = last = null;
         return lineSegmentsI;
     }
 

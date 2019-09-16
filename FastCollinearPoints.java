@@ -80,6 +80,7 @@ public class FastCollinearPoints {
             return lineSegmentsI;
         }
         lineSegmentsI = getLineSegmentsI();
+        head = last = null;
         return lineSegmentsI;
     }
 
