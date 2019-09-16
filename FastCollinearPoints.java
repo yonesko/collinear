@@ -9,6 +9,7 @@ import java.util.Arrays;
 public class FastCollinearPoints {
     private Node head, last;
     private int count;
+    private LineSegment[] lineSegmentsI;
 
     public FastCollinearPoints(Point[] points) {
         points = Arrays.copyOf(points, points.length);
@@ -75,6 +76,14 @@ public class FastCollinearPoints {
     }
 
     public LineSegment[] segments() {
+        if (lineSegmentsI != null) {
+            return lineSegmentsI;
+        }
+        lineSegmentsI = getLineSegmentsI();
+        return lineSegmentsI;
+    }
+
+    private LineSegment[] getLineSegmentsI() {
         if (head == null) {
             return new LineSegment[0];
         }

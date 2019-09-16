@@ -10,6 +10,7 @@ public class BruteCollinearPoints {
 
     private Node head, last;
     private int count;
+    private LineSegment[] lineSegmentsI;
 
     public BruteCollinearPoints(Point[] points) {
         points = Arrays.copyOf(points, points.length);
@@ -71,6 +72,14 @@ public class BruteCollinearPoints {
     }
 
     public LineSegment[] segments() {
+        if (lineSegmentsI != null) {
+            return lineSegmentsI;
+        }
+        lineSegmentsI = getLineSegmentsI();
+        return lineSegmentsI;
+    }
+
+    private LineSegment[] getLineSegmentsI() {
         if (head == null) {
             return new LineSegment[0];
         }
