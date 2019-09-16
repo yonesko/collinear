@@ -15,7 +15,7 @@ public class Client {
     public static void main(String[] args) {
 
         // read the n points from a file
-        In in = new In("input20.txt");
+        In in = new In("rs1423.txt");
         int n = in.readInt();
         Point[] points = new Point[n];
         for (int i = 0; i < n; i++) {

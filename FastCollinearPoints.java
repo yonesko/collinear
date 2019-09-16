@@ -28,7 +28,7 @@ public class FastCollinearPoints {
                     }
                     ls[ls.length - 1] = point;
                     Arrays.sort(ls);
-                    addNode(new Node(new LineSegment(ls[0], ls[ls.length - 1])));
+                    addNode(new Node(ls[0], ls[ls.length - 1]));
                     l = -1;
                 }
                 else {
@@ -59,7 +59,7 @@ public class FastCollinearPoints {
         }
         else {
             for (Node i = head; i != null; i = i.next) {
-                if (i.segment.toString().equals(node.segment.toString())) {
+                if (i.segment().toString().equals(node.segment().toString())) {
                     return;
                 }
             }
@@ -80,17 +80,22 @@ public class FastCollinearPoints {
         LineSegment[] ans = new LineSegment[count];
         Node node = this.head;
         for (int i = 0; i < ans.length; i++, node = node.next) {
-            ans[i] = node.segment;
+            ans[i] = node.segment();
         }
         return ans;
     }
 
     private static class Node {
-        private final LineSegment segment;
+        private final Point p, q;
         private Node next;
 
-        private Node(LineSegment segment) {
-            this.segment = segment;
+        private Node(Point p, Point q) {
+            this.p = p;
+            this.q = q;
+        }
+
+        LineSegment segment() {
+            return new LineSegment(p, q);
         }
     }
 
