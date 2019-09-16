@@ -12,6 +12,7 @@ public class BruteCollinearPoints {
     private int count;
 
     public BruteCollinearPoints(Point[] points) {
+        points = Arrays.copyOf(points, points.length);
         validate(points);
         for (int i = 0; i < points.length - 3; i++) {
             for (int j = i + 1; j < points.length - 2; j++) {

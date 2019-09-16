@@ -11,6 +11,7 @@ public class FastCollinearPoints {
     private int count;
 
     public FastCollinearPoints(Point[] points) {
+        points = Arrays.copyOf(points, points.length);
         validate(points);
         Point[] aux = Arrays.copyOf(points, points.length);
         for (Point point : points) {
