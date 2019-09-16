@@ -12,13 +12,7 @@ public class BruteCollinearPoints {
     private int count;
 
     public BruteCollinearPoints(Point[] points) {
-        if (points == null) throw new IllegalArgumentException();
-        for (Point point : points) {
-            if (point == null) {
-                throw new IllegalArgumentException();
-            }
-        }
-
+        validate(points);
         for (int i = 0; i < points.length - 3; i++) {
             for (int j = i + 1; j < points.length - 2; j++) {
                 for (int k = j + 1; k < points.length - 1; k++) {
@@ -34,6 +28,21 @@ public class BruteCollinearPoints {
             }
         }
 
+    }
+
+    private void validate(Point[] points) {
+        if (points == null) throw new IllegalArgumentException("points is null");
+        for (Point point : points) {
+            if (point == null) {
+                throw new IllegalArgumentException("point is null");
+            }
+        }
+        Arrays.sort(points);
+        for (int i = 0; i < points.length - 1; i++) {
+            if (points[i].compareTo(points[i + 1]) == 0) {
+                throw new IllegalArgumentException("dups");
+            }
+        }
     }
 
     private void addNode(Node node) {
