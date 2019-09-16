@@ -11,6 +11,11 @@ public class FastCollinearPoints {
     private int count;
 
     public FastCollinearPoints(Point[] points) {
+        for (Point point : points) {
+            if (point == null) {
+                throw new IllegalArgumentException();
+            }
+        }
         Point[] aux = Arrays.copyOf(points, points.length);
         for (Point point : points) {
             Arrays.sort(aux, point.slopeOrder());
