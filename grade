@@ -1,0 +1,3285 @@
+Spotbugs:     FAILED (3 warnings)
+PMD:          FAILED (2 warnings)
+Checkstyle:   FAILED (0 errors, 11 warnings)
+
+Correctness:  15/41 tests passed
+Memory:       1/1 tests passed
+Timing:       10/41 tests passed
+
+Aggregate score: 46.83%
+[Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+5.0K Sep 16 17:59 BruteCollinearPoints.java
+5.2K Sep 16 17:59 FastCollinearPoints.java
+4.9K Sep 16 17:59 Point.java
+
+
+********************************************************************************
+*  COMPILING
+********************************************************************************
+
+
+% javac11 Point.java
+*-----------------------------------------------------------
+
+% javac11 LineSegment.java
+*-----------------------------------------------------------
+
+% javac11 BruteCollinearPoints.java
+*-----------------------------------------------------------
+
+% javac11 FastCollinearPoints.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Point:
+
+BruteCollinearPoints:
+
+FastCollinearPoints:
+
+================================================================
+
+
+********************************************************************************
+*  CHECKING STYLE AND COMMON BUG PATTERNS
+********************************************************************************
+
+
+% spotbugs *.class
+*-----------------------------------------------------------
+L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At Point.java:[line 149]
+L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At BruteCollinearPoints.java:[line 26]
+L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At FastCollinearPoints.java:[line 19]
+Warnings generated: 3
+
+
+================================================================
+
+
+% pmd .
+*-----------------------------------------------------------
+Point.java:98: Useless qualified this usage in the same class. [UselessQualifiedThis]
+Point.java:98: Useless qualified this usage in the same class. [UselessQualifiedThis]
+PMD ends with 2 warnings.
+
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+[WARN] BruteCollinearPoints.java:24:30: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
+[WARN] FastCollinearPoints.java:17:17: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
+[WARN] FastCollinearPoints.java:40:25: Inner assignments should be avoided. [InnerAssignment]
+Checkstyle ends with 0 errors and 3 warnings.
+
+% custom checkstyle checks for Point.java
+*-----------------------------------------------------------
+[WARN] Point.java:146:29: The numeric literal '100' appears to be unnecessary. [NumericLiteral]
+[WARN] Point.java:147:46: The numeric literal '1000000' appears to be unnecessary. [NumericLiteral]
+[WARN] Point.java:147:78: The numeric literal '1000000' appears to be unnecessary. [NumericLiteral]
+[WARN] Point.java:148:46: The numeric literal '1000000' appears to be unnecessary. [NumericLiteral]
+[WARN] Point.java:148:78: The numeric literal '1000000' appears to be unnecessary. [NumericLiteral]
+Checkstyle ends with 0 errors and 5 warnings.
+
+% custom checkstyle checks for BruteCollinearPoints.java
+*-----------------------------------------------------------
+[WARN] BruteCollinearPoints.java:9:1: Defining a nested class in this program suggests poor design. [Design]
+Checkstyle ends with 0 errors and 1 warning.
+
+% custom checkstyle checks for FastCollinearPoints.java
+*-----------------------------------------------------------
+[WARN] FastCollinearPoints.java:9:1: Defining a nested class in this program suggests poor design. [Design]
+[WARN] FastCollinearPoints.java:30:39: Do not print to standard output in 'FastCollinearPoints()'. [SideEffect]
+Checkstyle ends with 0 errors and 2 warnings.
+
+
+================================================================
+
+
+********************************************************************************
+*  TESTING CORRECTNESS
+********************************************************************************
+
+Testing correctness of Point
+*-----------------------------------------------------------
+Running 3 total tests.
+
+Test 1: p.slopeTo(q)
+  * positive infinite slope, where p and q have coordinates in [0, 500)
+  * positive infinite slope, where p and q have coordinates in [0, 32768)
+  * negative infinite slope, where p and q have coordinates in [0, 500)
+  * negative infinite slope, where p and q have coordinates in [0, 32768)
+  * positive zero     slope, where p and q have coordinates in [0, 500)
+  * positive zero     slope, where p and q have coordinates in [0, 32768)
+  * symmetric for random points p and q with coordinates in [0, 500)
+  * symmetric for random points p and q with coordinates in [0, 32768)
+  * transitive for random points p, q, and r with coordinates in [0, 500)
+  * transitive for random points p, q, and r with coordinates in [0, 32768)
+  * slopeTo(), where p and q have coordinates in [0, 500)
+  * slopeTo(), where p and q have coordinates in [0, 32768)
+  * slopeTo(), where p and q have coordinates in [0, 10)
+  * throw a java.lang.NullPointerException if argument is null
+==> passed
+
+Test 2: p.compareTo(q)
+  * reflexive, where p and q have coordinates in [0, 500)
+  * reflexive, where p and q have coordinates in [0, 32768)
+  * antisymmetric, where p and q have coordinates in [0, 500)
+  * antisymmetric, where p and q have coordinates in [0, 32768)
+  * transitive, where p, q, and r have coordinates in [0, 500)
+  * transitive, where p, q, and r have coordinates in [0, 32768)
+  * sign of compareTo(), where p and q have coordinates in [0, 500)
+  * sign of compareTo(), where p and q have coordinates in [0, 32768)
+  * sign of compareTo(), where p and q have coordinates in [0, 10)
+  * throw java.lang.NullPointerException exception if argument is null
+==> passed
+
+Test 3: p.slopeOrder().compare(q, r)
+  * reflexive, where p and q have coordinates in [0, 500)
+  * reflexive, where p and q have coordinates in [0, 32768)
+  * antisymmetric, where p, q, and r have coordinates in [0, 500)
+  * antisymmetric, where p, q, and r have coordinates in [0, 32768)
+  * transitive, where p, q, r, and s have coordinates in [0, 500)
+  * transitive, where p, q, r, and s have coordinates in [0, 32768)
+  * sign of compare(), where p, q, and r have coordinates in [0, 500)
+  * sign of compare(), where p, q, and r have coordinates in [0, 32768)
+  * sign of compare(), where p, q, and r have coordinates in [0, 10)
+  * throw java.lang.NullPointerException if either argument is null
+==> passed
+
+
+Total: 3/3 tests passed!
+
+
+================================================================
+********************************************************************************
+*  TESTING CORRECTNESS (substituting reference Point and LineSegment)
+********************************************************************************
+
+Testing correctness of BruteCollinearPoints
+*-----------------------------------------------------------
+Running 17 total tests.
+
+The inputs satisfy the following conditions:
+  - no duplicate points
+  - no 5 (or more) points are collinear
+  - all x- and y-coordinates between 0 and 32,767
+
+Test 1: points from a file
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+    - segments() contains the same segment more than once
+    - segment 1: (1000, 2000) -> (1000, 26000)
+    - segment 2: (1000, 2000) -> (1000, 26000)
+
+    - number of entries in student   solution: 8
+    - number of entries in reference solution: 6
+    - 2 extra entries in student solution, including:
+      '(1000, 2000) -> (1000, 26000)'
+
+
+==> FAILED
+
+Test 2a: points from a file with horizontal line segments
+  * filename = horizontal5.txt
+  * filename = horizontal25.txt
+==> passed
+
+Test 2b: random horizontal line segments
+  *  1 random horizontal line segment
+  *  5 random horizontal line segments
+  * 10 random horizontal line segments
+  * 15 random horizontal line segments
+==> passed
+
+Test 3a: points from a file with vertical line segments
+  * filename = vertical5.txt
+  * filename = vertical25.txt
+==> passed
+
+Test 3b: random vertical line segments
+  *  1 random vertical line segment
+  *  5 random vertical line segments
+  * 10 random vertical line segments
+  * 15 random vertical line segments
+==> passed
+
+Test 4a: points from a file with no line segments
+  * filename = random23.txt
+  * filename = random38.txt
+==> passed
+
+Test 4b: random points with no line segments
+  *  5 random points
+  * 10 random points
+  * 20 random points
+  * 50 random points
+==> passed
+
+Test 5: points from a file with fewer than 4 points
+  * filename = input1.txt
+  * filename = input2.txt
+  * filename = input3.txt
+==> passed
+
+Test 6: check for dependence on either compareTo() or compare()
+        returning { -1, +1, 0 } instead of { negative integer,
+        positive integer, zero }
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+    - segments() contains the same segment more than once
+    - segment 1: (1000, 2000) -> (1000, 26000)
+    - segment 2: (1000, 2000) -> (1000, 26000)
+
+    - number of entries in student   solution: 8
+    - number of entries in reference solution: 6
+    - 2 extra entries in student solution, including:
+      '(1000, 2000) -> (1000, 26000)'
+
+
+==> FAILED
+
+Test 7: check for fragile dependence on return value of toString()
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+    - segments() contains the same segment more than once
+    - segment 1: (1000, 2000) -> (1000, 26000)
+    - segment 2: (1000, 2000) -> (1000, 26000)
+
+    - number of entries in student   solution: 8
+    - number of entries in reference solution: 6
+    - 2 extra entries in student solution, including:
+      '(1000, 2000) -> (1000, 26000)'
+
+
+
+It is bad style to write code that depends on the particular format of
+the output from the toString() method, especially if your reason for
+doing so is to circumvent the public API (which intentionally does not
+provide access to the x- and y-coordinates).
+
+==> FAILED
+
+Test 8: random line segments, none vertical or horizontal
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
+==> passed
+
+Test 9: random line segments
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
+==> passed
+
+Test 10: check that data type is immutable by testing whether each method
+         returns the same value, regardless of any intervening operations
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 11: check that data type does not mutate the constructor argument
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 12: numberOfSegments() is consistent with segments()
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = horizontal5.txt
+  * filename = vertical5.txt
+  * filename = random23.txt
+==> passed
+
+Test 13: throws an exception if either the constructor argument is null
+         or any entry in array is null
+  * argument is null
+  * Point[] of length 10, number of null entries = 1
+    - constructor throws wrong exception
+    - constructor throws a java.lang.NullPointerException
+    - constructor should throw a java.lang.IllegalArgumentException
+     10
+       886  7400
+     11036 15199
+     21761 27065
+     null
+      4179 10347
+     19818 20774
+     22162 12300
+     25042 16369
+     30438 13286
+     31024 30230
+
+  * Point[] of length 10, number of null entries = 10
+    - constructor throws wrong exception
+    - constructor throws a java.lang.NullPointerException
+    - constructor should throw a java.lang.IllegalArgumentException
+     10
+     null
+     null
+     null
+     null
+     null
+     null
+     null
+     null
+     null
+     null
+
+  * Point[] of length 4, number of null entries = 1
+    - constructor fails to throw an exception
+     4
+     22179  8001
+     26859  5420
+      7335 11727
+     null
+
+  * Point[] of length 3, number of null entries = 1
+    - constructor fails to throw an exception
+     3
+      2000  2885
+     null
+     28952  5911
+
+  * Point[] of length 2, number of null entries = 1
+    - constructor fails to throw an exception
+     2
+     null
+     16545 28322
+
+  * Point[] of length 1, number of null entries = 1
+    - constructor fails to throw an exception
+     1
+     null
+
+==> FAILED
+
+Test 14: check that the constructor throws an exception if duplicate points
+  * 50 points
+    - failed on trial 1 of 5
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+  * 25 points
+    - failed on trial 1 of 10
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+  * 5 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     5
+     23411 18352
+     19870  7834
+     19870  7834
+     11996 31839
+     31555   774
+
+  * 4 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     4
+      1160 21136
+     16922  2011
+     17221 22313
+      1160 21136
+
+  * 3 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     3
+     15947 12252
+     12600  4754
+     15947 12252
+
+  * 2 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+     2
+      6434  4745
+      6434  4745
+
+==> FAILED
+
+
+Total: 12/17 tests passed!
+
+
+================================================================
+Testing correctness of FastCollinearPoints
+*-----------------------------------------------------------
+Running 21 total tests.
+
+The inputs satisfy the following conditions:
+  - no duplicate points
+  - all x- and y-coordinates between 0 and 32,767
+
+Test 1: points from a file
+  * filename = input8.txt
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+  * filename = equidistant.txt
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 12
+ls.length = 6
+ls.length = 4
+ls.length = 4
+ls.length = 9
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 5
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 5: (10000, 0) -> (2000, 8000)
+    - reference segment 1: (10000, 0) -> (8000, 2000) -> (2000, 8000) -> (0, 10000)
+
+    - number of entries in student   solution: 8
+    - number of entries in reference solution: 4
+    - 4 extra entries in student solution, including:
+      '(30000, 0) -> (0, 10000)'
+
+
+  * filename = input40.txt
+ls.length = 18
+ls.length = 4
+ls.length = 4
+ls.length = 25
+ls.length = 4
+ls.length = 7
+ls.length = 11
+ls.length = 23
+ls.length = 16
+ls.length = 12
+ls.length = 4
+ls.length = 18
+ls.length = 26
+ls.length = 9
+ls.length = 9
+ls.length = 4
+ls.length = 17
+ls.length = 4
+ls.length = 5
+ls.length = 14
+ls.length = 35
+ls.length = 4
+ls.length = 7
+ls.length = 20
+ls.length = 7
+ls.length = 8
+ls.length = 11
+ls.length = 10
+ls.length = 4
+ls.length = 4
+ls.length = 6
+ls.length = 8
+ls.length = 9
+ls.length = 6
+ls.length = 4
+ls.length = 7
+ls.length = 22
+ls.length = 4
+ls.length = 16
+ls.length = 4
+    - number of entries in student   solution: 20
+    - number of entries in reference solution: 4
+    - 17 extra entries in student solution, including:
+      '(4000, 26000) -> (2000, 29000)'
+
+    - 1 missing entry in student solution:
+      '(1000, 17000) -> (13000, 17000) -> (17000, 17000) -> (29000, 17000)'
+
+
+  * filename = input48.txt
+ls.length = 9
+ls.length = 10
+ls.length = 11
+ls.length = 4
+ls.length = 6
+ls.length = 4
+ls.length = 5
+ls.length = 7
+ls.length = 4
+ls.length = 8
+ls.length = 23
+ls.length = 7
+ls.length = 4
+ls.length = 24
+ls.length = 4
+ls.length = 11
+ls.length = 27
+ls.length = 12
+ls.length = 4
+ls.length = 15
+ls.length = 10
+ls.length = 23
+ls.length = 4
+ls.length = 7
+ls.length = 11
+ls.length = 22
+ls.length = 21
+ls.length = 22
+ls.length = 8
+ls.length = 4
+ls.length = 12
+ls.length = 4
+ls.length = 4
+ls.length = 13
+ls.length = 22
+ls.length = 16
+ls.length = 14
+ls.length = 10
+ls.length = 5
+ls.length = 7
+ls.length = 23
+ls.length = 9
+ls.length = 4
+ls.length = 7
+ls.length = 10
+ls.length = 37
+ls.length = 7
+ls.length = 16
+ls.length = 4
+ls.length = 4
+ls.length = 6
+ls.length = 13
+ls.length = 11
+ls.length = 4
+ls.length = 4
+ls.length = 8
+ls.length = 5
+ls.length = 16
+ls.length = 33
+ls.length = 9
+ls.length = 25
+ls.length = 6
+ls.length = 6
+ls.length = 4
+ls.length = 4
+ls.length = 32
+ls.length = 4
+ls.length = 12
+ls.length = 18
+ls.length = 19
+ls.length = 15
+ls.length = 10
+ls.length = 15
+ls.length = 19
+ls.length = 19
+ls.length = 27
+ls.length = 24
+    - number of entries in student   solution: 38
+    - number of entries in reference solution: 6
+    - 32 extra entries in student solution, including:
+      '(1000, 26000) -> (23000, 29000)'
+
+
+  * filename = input299.txt
+ls.length = 4
+ls.length = 39
+ls.length = 55
+ls.length = 4
+ls.length = 170
+ls.length = 156
+ls.length = 286
+ls.length = 30
+ls.length = 4
+ls.length = 6
+ls.length = 16
+ls.length = 87
+ls.length = 144
+ls.length = 45
+ls.length = 66
+ls.length = 45
+ls.length = 114
+ls.length = 231
+ls.length = 79
+ls.length = 21
+ls.length = 121
+ls.length = 4
+ls.length = 4
+ls.length = 17
+ls.length = 4
+ls.length = 33
+ls.length = 68
+ls.length = 131
+ls.length = 76
+ls.length = 75
+ls.length = 4
+ls.length = 4
+ls.length = 32
+ls.length = 123
+ls.length = 209
+ls.length = 4
+ls.length = 73
+ls.length = 25
+ls.length = 85
+ls.length = 28
+ls.length = 4
+ls.length = 31
+ls.length = 4
+ls.length = 15
+ls.length = 9
+ls.length = 127
+ls.length = 4
+ls.length = 4
+ls.length = 98
+ls.length = 50
+ls.length = 77
+ls.length = 18
+ls.length = 50
+ls.length = 176
+ls.length = 137
+ls.length = 210
+ls.length = 69
+ls.length = 53
+ls.length = 4
+ls.length = 51
+ls.length = 47
+ls.length = 284
+ls.length = 252
+ls.length = 171
+ls.length = 286
+ls.length = 36
+ls.length = 108
+ls.length = 96
+ls.length = 124
+ls.length = 118
+ls.length = 253
+ls.length = 10
+ls.length = 60
+ls.length = 18
+ls.length = 180
+ls.length = 240
+    - number of entries in student   solution: 44
+    - number of entries in reference solution: 6
+    - 38 extra entries in student solution, including:
+      '(1200, 19450) -> (25450, 31400)'
+
+
+==> FAILED
+
+Test 2a: points from a file with horizontal line segments
+  * filename = horizontal5.txt
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+  * filename = horizontal25.txt
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+  * filename = horizontal50.txt
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+  * filename = horizontal75.txt
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 140
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 147
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 139
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+    - number of entries in student   solution: 76
+    - number of entries in reference solution: 75
+    - 1 extra entry in student solution:
+      '(17515, 1061) -> (6545, 20976)'
+
+
+  * filename = horizontal100.txt
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+==> FAILED
+
+Test 2b: random horizontal line segments
+  *  1 random horizontal line segment
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+ls.length = 4
+
+
+...
+
+WARNING: the grading output was truncated due to excessive length.
+Typically, this is because you have a method that has an unanticipated side effect
+(such as printing to standard output or throwing an exception). A large amount of output
+can also arise from failing many tests.

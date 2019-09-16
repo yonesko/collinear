@@ -27,7 +27,6 @@ public class FastCollinearPoints {
                     }
                     ls[ls.length - 1] = point;
                     Arrays.sort(ls);
-                    System.out.println("ls.length = " + ls.length);
                     addNode(new Node(new LineSegment(ls[0], ls[ls.length - 1])));
                     l = -1;
                 }
