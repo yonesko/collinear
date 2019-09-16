@@ -26,15 +26,7 @@ public class FastCollinearPoints {
                         ls[j] = aux[l + j];
                     }
                     Arrays.sort(ls);
-                    Node node = new Node(new LineSegment(ls[0], ls[ls.length - 1]));
-                    if (head == null) {
-                        head = last = node;
-                    }
-                    else {
-                        last.next = node;
-                        last = node;
-                    }
-                    count++;
+                    addNode(new Node(new LineSegment(ls[0], ls[ls.length - 1])));
                     l = -1;
                 }
             }
@@ -44,18 +36,20 @@ public class FastCollinearPoints {
                     ls[j] = aux[l + j];
                 }
                 Arrays.sort(ls);
-                Node node = new Node(new LineSegment(ls[0], ls[ls.length - 1]));
-                if (head == null) {
-                    head = last = node;
-                }
-                else {
-                    last.next = node;
-                    last = node;
-                }
-                count++;
-                l = -1;
+                addNode(new Node(new LineSegment(ls[0], ls[ls.length - 1])));
             }
         }
+    }
+
+    private void addNode(Node node) {
+        if (head == null) {
+            head = last = node;
+        }
+        else {
+            last.next = node;
+            last = node;
+        }
+        count++;
     }
 
     public int numberOfSegments() {
