@@ -8,12 +8,11 @@ import java.util.Arrays;
 
 public class BruteCollinearPoints {
 
-    private LineSegment[] segments;
+    private Node head, last;
     private int count;
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) throw new IllegalArgumentException();
-        segments = new LineSegment[points.length];
         Point[] aux = new Point[4];
 
         for (int i = 0; i < points.length - 3; i++) {
@@ -27,7 +26,16 @@ public class BruteCollinearPoints {
                         if (aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[2])
                                 && aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[3])) {
                             Arrays.sort(aux);
-                            segments[count++] = new LineSegment(aux[0], aux[3]);
+                            if (head == null) {
+                                head = new Node(new LineSegment(aux[0], aux[3]));
+                                last = head;
+                            }
+                            else {
+                                final Node node = new Node(new LineSegment(aux[0], aux[3]));
+                                last.next = node;
+                                last = node;
+                            }
+                            count++;
                         }
                     }
                 }
@@ -36,12 +44,29 @@ public class BruteCollinearPoints {
 
     }
 
+    private static class Node {
+        final LineSegment segment;
+        Node next;
+
+        private Node(LineSegment segment) {
+            this.segment = segment;
+        }
+    }
+
     public int numberOfSegments() {
         return count;
     }
 
     public LineSegment[] segments() {
-        return Arrays.copyOf(segments, count);
+        if (head == null) {
+            return new LineSegment[0];
+        }
+        LineSegment[] ans = new LineSegment[count];
+        Node node = this.head;
+        for (int i = 0; i < ans.length; i++, node = node.next) {
+            ans[i] = node.segment;
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
