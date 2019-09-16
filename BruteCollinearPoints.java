@@ -26,15 +26,7 @@ public class BruteCollinearPoints {
                         if (aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[2])
                                 && aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[3])) {
                             Arrays.sort(aux);
-                            if (head == null) {
-                                head = new Node(new LineSegment(aux[0], aux[3]));
-                                last = head;
-                            }
-                            else {
-                                final Node node = new Node(new LineSegment(aux[0], aux[3]));
-                                last.next = node;
-                                last = node;
-                            }
+                            addNode(new Node(new LineSegment(aux[0], aux[3])));
                             count++;
                         }
                     }
@@ -42,6 +34,22 @@ public class BruteCollinearPoints {
             }
         }
 
+    }
+
+    private void addNode(Node node) {
+        if (head == null) {
+            head = last = node;
+        }
+        else {
+            for (Node i = head; i != null; i = i.next) {
+                if (i.segment.toString().equals(node.segment.toString())) {
+                    return;
+                }
+            }
+            last.next = node;
+            last = node;
+        }
+        count++;
     }
 
     private static class Node {
