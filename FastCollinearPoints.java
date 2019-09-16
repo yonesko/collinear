@@ -15,28 +15,22 @@ public class FastCollinearPoints {
         for (Point point : points) {
             Arrays.sort(aux, point.slopeOrder());
             int l = -1, r = 0;
-            for (int i = 0; i < aux.length - 1; i++) {
-                if (point.slopeTo(aux[i]) == point.slopeTo(aux[i + 1])) {
+            for (int i = 0; i < aux.length; i++) {
+                if (i + 1 < aux.length && point.slopeTo(aux[i]) == point.slopeTo(aux[i + 1])) {
                     if (l == -1) l = i;
                     r = i + 1;
                 }
-                else if (l != -1 && r - l + 1 >= 4) {
-                    Point[] ls = new Point[r - l + 1];
-                    for (int j = 0; j < ls.length; j++) {
+                else if (l != -1 && r - l + 1 >= 3) {
+                    Point[] ls = new Point[r - l + 2];
+                    for (int j = 0; j < ls.length - 1; j++) {
                         ls[j] = aux[l + j];
                     }
+                    ls[ls.length - 1] = point;
                     Arrays.sort(ls);
+                    System.out.println("ls.length = " + ls.length);
                     addNode(new Node(new LineSegment(ls[0], ls[ls.length - 1])));
                     l = -1;
                 }
-            }
-            if (l != -1 && r - l + 1 >= 4) {
-                Point[] ls = new Point[r - l + 1];
-                for (int j = 0; j < ls.length; j++) {
-                    ls[j] = aux[l + j];
-                }
-                Arrays.sort(ls);
-                addNode(new Node(new LineSegment(ls[0], ls[ls.length - 1])));
             }
         }
     }
@@ -46,6 +40,11 @@ public class FastCollinearPoints {
             head = last = node;
         }
         else {
+            for (Node i = head; i != null; i = i.next) {
+                if (i.segment.toString().equals(node.segment.toString())) {
+                    return;
+                }
+            }
             last.next = node;
             last = node;
         }
@@ -78,7 +77,7 @@ public class FastCollinearPoints {
     }
 
     public static void main(String[] args) {
-        BruteCollinearPoints points = new BruteCollinearPoints(new Point[] {
+        FastCollinearPoints points = new FastCollinearPoints(new Point[] {
                 new Point(4, 4),
                 new Point(2, 2),
                 new Point(1, 1),
@@ -86,10 +85,11 @@ public class FastCollinearPoints {
                 new Point(3, 31),
                 });
         if (points.numberOfSegments() != 1) {
-            throw new RuntimeException();
+            throw new RuntimeException(String.format("count %s ans %s", points.numberOfSegments(),
+                                                     Arrays.toString(points.segments())));
         }
         System.out.println(Arrays.toString(points.segments()));
-        points = new BruteCollinearPoints(new Point[] {
+        points = new FastCollinearPoints(new Point[] {
                 new Point(4, 4),
                 new Point(2, 2),
                 new Point(1, 1),
@@ -103,7 +103,7 @@ public class FastCollinearPoints {
             throw new RuntimeException();
         }
         System.out.println(Arrays.toString(points.segments()));
-        points = new BruteCollinearPoints(new Point[] {
+        points = new FastCollinearPoints(new Point[] {
                 new Point(4, 4),
                 new Point(2, 2),
                 new Point(1, 1),
@@ -116,7 +116,7 @@ public class FastCollinearPoints {
             throw new RuntimeException();
         }
         System.out.println(Arrays.toString(points.segments()));
-        points = new BruteCollinearPoints(new Point[] {
+        points = new FastCollinearPoints(new Point[] {
                 new Point(4, 4),
                 new Point(2, 2),
                 new Point(1, 1),
@@ -128,7 +128,7 @@ public class FastCollinearPoints {
             throw new RuntimeException();
         }
         System.out.println(Arrays.toString(points.segments()));
-        points = new BruteCollinearPoints(new Point[] {
+        points = new FastCollinearPoints(new Point[] {
                 new Point(1, 1),
                 new Point(2, 2),
                 new Point(3, 3),
@@ -141,7 +141,7 @@ public class FastCollinearPoints {
             throw new RuntimeException(Arrays.toString(points.segments()));
         }
         System.out.println(Arrays.toString(points.segments()));
-        points = new BruteCollinearPoints(new Point[] {
+        points = new FastCollinearPoints(new Point[] {
                 new Point(1, 2),
                 new Point(3, 2),
                 new Point(2, 2),
