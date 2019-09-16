@@ -1,21 +1,28 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
 Spotbugs:     FAILED (3 warnings)
 PMD:          FAILED (2 warnings)
 Checkstyle:   FAILED (0 errors, 11 warnings)
 
-Correctness:  15/41 tests passed
+Correctness:  28/41 tests passed
 Memory:       1/1 tests passed
-Timing:       10/41 tests passed
+Timing:       26/41 tests passed
 
-Aggregate score: 46.83%
+Aggregate score: 73.66%
 [Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-5.0K Sep 16 17:59 BruteCollinearPoints.java
-5.2K Sep 16 17:59 FastCollinearPoints.java
-4.9K Sep 16 17:59 Point.java
+4.9K Sep 16 18:47 BruteCollinearPoints.java
+5.3K Sep 16 18:47 FastCollinearPoints.java
+4.9K Sep 16 18:47 Point.java
 
 
 ********************************************************************************
@@ -59,7 +66,7 @@ FastCollinearPoints:
 *-----------------------------------------------------------
 L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At Point.java:[line 149]
 L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At BruteCollinearPoints.java:[line 26]
-L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At FastCollinearPoints.java:[line 19]
+L D FE_FLOATING_POINT_EQUALITY FE: Tests for exact floating-point equality. Because floating-point calculations may involve rounding, the calculated values may be imprecise.  At FastCollinearPoints.java:[line 24]
 Warnings generated: 3
 
 
@@ -78,10 +85,11 @@ PMD ends with 2 warnings.
 
 % checkstyle *.java
 *-----------------------------------------------------------
-[WARN] BruteCollinearPoints.java:24:30: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
-[WARN] FastCollinearPoints.java:17:17: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
-[WARN] FastCollinearPoints.java:40:25: Inner assignments should be avoided. [InnerAssignment]
-Checkstyle ends with 0 errors and 3 warnings.
+[WARN] BruteCollinearPoints.java:25:30: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
+[WARN] BruteCollinearPoints.java:41:25: Inner assignments should be avoided. [InnerAssignment]
+[WARN] FastCollinearPoints.java:22:17: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
+[WARN] FastCollinearPoints.java:44:25: Inner assignments should be avoided. [InnerAssignment]
+Checkstyle ends with 0 errors and 4 warnings.
 
 % custom checkstyle checks for Point.java
 *-----------------------------------------------------------
@@ -100,8 +108,7 @@ Checkstyle ends with 0 errors and 1 warning.
 % custom checkstyle checks for FastCollinearPoints.java
 *-----------------------------------------------------------
 [WARN] FastCollinearPoints.java:9:1: Defining a nested class in this program suggests poor design. [Design]
-[WARN] FastCollinearPoints.java:30:39: Do not print to standard output in 'FastCollinearPoints()'. [SideEffect]
-Checkstyle ends with 0 errors and 2 warnings.
+Checkstyle ends with 0 errors and 1 warning.
 
 
 ================================================================
@@ -181,17 +188,7 @@ Test 1: points from a file
   * filename = equidistant.txt
   * filename = input40.txt
   * filename = input48.txt
-    - segments() contains the same segment more than once
-    - segment 1: (1000, 2000) -> (1000, 26000)
-    - segment 2: (1000, 2000) -> (1000, 26000)
-
-    - number of entries in student   solution: 8
-    - number of entries in reference solution: 6
-    - 2 extra entries in student solution, including:
-      '(1000, 2000) -> (1000, 26000)'
-
-
-==> FAILED
+==> passed
 
 Test 2a: points from a file with horizontal line segments
   * filename = horizontal5.txt
@@ -241,39 +238,13 @@ Test 6: check for dependence on either compareTo() or compare()
   * filename = equidistant.txt
   * filename = input40.txt
   * filename = input48.txt
-    - segments() contains the same segment more than once
-    - segment 1: (1000, 2000) -> (1000, 26000)
-    - segment 2: (1000, 2000) -> (1000, 26000)
-
-    - number of entries in student   solution: 8
-    - number of entries in reference solution: 6
-    - 2 extra entries in student solution, including:
-      '(1000, 2000) -> (1000, 26000)'
-
-
-==> FAILED
+==> passed
 
 Test 7: check for fragile dependence on return value of toString()
   * filename = equidistant.txt
   * filename = input40.txt
   * filename = input48.txt
-    - segments() contains the same segment more than once
-    - segment 1: (1000, 2000) -> (1000, 26000)
-    - segment 2: (1000, 2000) -> (1000, 26000)
-
-    - number of entries in student   solution: 8
-    - number of entries in reference solution: 6
-    - 2 extra entries in student solution, including:
-      '(1000, 2000) -> (1000, 26000)'
-
-
-
-It is bad style to write code that depends on the particular format of
-the output from the toString() method, especially if your reason for
-doing so is to circumvent the public API (which intentionally does not
-provide access to the x- and y-coordinates).
-
-==> FAILED
+==> passed
 
 Test 8: random line segments, none vertical or horizontal
   *  1 random line segment
@@ -314,64 +285,12 @@ Test 13: throws an exception if either the constructor argument is null
          or any entry in array is null
   * argument is null
   * Point[] of length 10, number of null entries = 1
-    - constructor throws wrong exception
-    - constructor throws a java.lang.NullPointerException
-    - constructor should throw a java.lang.IllegalArgumentException
-     10
-       886  7400
-     11036 15199
-     21761 27065
-     null
-      4179 10347
-     19818 20774
-     22162 12300
-     25042 16369
-     30438 13286
-     31024 30230
-
   * Point[] of length 10, number of null entries = 10
-    - constructor throws wrong exception
-    - constructor throws a java.lang.NullPointerException
-    - constructor should throw a java.lang.IllegalArgumentException
-     10
-     null
-     null
-     null
-     null
-     null
-     null
-     null
-     null
-     null
-     null
-
   * Point[] of length 4, number of null entries = 1
-    - constructor fails to throw an exception
-     4
-     22179  8001
-     26859  5420
-      7335 11727
-     null
-
   * Point[] of length 3, number of null entries = 1
-    - constructor fails to throw an exception
-     3
-      2000  2885
-     null
-     28952  5911
-
   * Point[] of length 2, number of null entries = 1
-    - constructor fails to throw an exception
-     2
-     null
-     16545 28322
-
   * Point[] of length 1, number of null entries = 1
-    - constructor fails to throw an exception
-     1
-     null
-
-==> FAILED
+==> passed
 
 Test 14: check that the constructor throws an exception if duplicate points
   * 50 points
@@ -386,40 +305,40 @@ Test 14: check that the constructor throws an exception if duplicate points
     - failed on trial 1 of 100
     - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
      5
-     23411 18352
-     19870  7834
-     19870  7834
-     11996 31839
-     31555   774
+     13060  7138
+      1874  4632
+       152 29565
+     32440  4333
+      1874  4632
 
   * 4 points
     - failed on trial 1 of 100
     - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
      4
-      1160 21136
-     16922  2011
-     17221 22313
-      1160 21136
+     19681 18307
+     27745 19644
+     28831 17809
+     27745 19644
 
   * 3 points
     - failed on trial 1 of 100
     - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
      3
-     15947 12252
-     12600  4754
-     15947 12252
+     24556 16929
+     24556 16929
+     12153 24910
 
   * 2 points
     - failed on trial 1 of 100
     - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
      2
-      6434  4745
-      6434  4745
+     28645  6719
+     28645  6719
 
 ==> FAILED
 
 
-Total: 12/17 tests passed!
+Total: 16/17 tests passed!
 
 
 ================================================================
@@ -433,33 +352,7 @@ The inputs satisfy the following conditions:
 
 Test 1: points from a file
   * filename = input8.txt
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
   * filename = equidistant.txt
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 12
-ls.length = 6
-ls.length = 4
-ls.length = 4
-ls.length = 9
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 5
     - segments() contains a subsegment of a segment in reference solution
     - student   segment 5: (10000, 0) -> (2000, 8000)
     - reference segment 1: (10000, 0) -> (8000, 2000) -> (2000, 8000) -> (0, 10000)
@@ -471,46 +364,6 @@ ls.length = 5
 
 
   * filename = input40.txt
-ls.length = 18
-ls.length = 4
-ls.length = 4
-ls.length = 25
-ls.length = 4
-ls.length = 7
-ls.length = 11
-ls.length = 23
-ls.length = 16
-ls.length = 12
-ls.length = 4
-ls.length = 18
-ls.length = 26
-ls.length = 9
-ls.length = 9
-ls.length = 4
-ls.length = 17
-ls.length = 4
-ls.length = 5
-ls.length = 14
-ls.length = 35
-ls.length = 4
-ls.length = 7
-ls.length = 20
-ls.length = 7
-ls.length = 8
-ls.length = 11
-ls.length = 10
-ls.length = 4
-ls.length = 4
-ls.length = 6
-ls.length = 8
-ls.length = 9
-ls.length = 6
-ls.length = 4
-ls.length = 7
-ls.length = 22
-ls.length = 4
-ls.length = 16
-ls.length = 4
     - number of entries in student   solution: 20
     - number of entries in reference solution: 4
     - 17 extra entries in student solution, including:
@@ -521,83 +374,6 @@ ls.length = 4
 
 
   * filename = input48.txt
-ls.length = 9
-ls.length = 10
-ls.length = 11
-ls.length = 4
-ls.length = 6
-ls.length = 4
-ls.length = 5
-ls.length = 7
-ls.length = 4
-ls.length = 8
-ls.length = 23
-ls.length = 7
-ls.length = 4
-ls.length = 24
-ls.length = 4
-ls.length = 11
-ls.length = 27
-ls.length = 12
-ls.length = 4
-ls.length = 15
-ls.length = 10
-ls.length = 23
-ls.length = 4
-ls.length = 7
-ls.length = 11
-ls.length = 22
-ls.length = 21
-ls.length = 22
-ls.length = 8
-ls.length = 4
-ls.length = 12
-ls.length = 4
-ls.length = 4
-ls.length = 13
-ls.length = 22
-ls.length = 16
-ls.length = 14
-ls.length = 10
-ls.length = 5
-ls.length = 7
-ls.length = 23
-ls.length = 9
-ls.length = 4
-ls.length = 7
-ls.length = 10
-ls.length = 37
-ls.length = 7
-ls.length = 16
-ls.length = 4
-ls.length = 4
-ls.length = 6
-ls.length = 13
-ls.length = 11
-ls.length = 4
-ls.length = 4
-ls.length = 8
-ls.length = 5
-ls.length = 16
-ls.length = 33
-ls.length = 9
-ls.length = 25
-ls.length = 6
-ls.length = 6
-ls.length = 4
-ls.length = 4
-ls.length = 32
-ls.length = 4
-ls.length = 12
-ls.length = 18
-ls.length = 19
-ls.length = 15
-ls.length = 10
-ls.length = 15
-ls.length = 19
-ls.length = 19
-ls.length = 27
-ls.length = 24
     - number of entries in student   solution: 38
     - number of entries in reference solution: 6
     - 32 extra entries in student solution, including:
@@ -605,82 +381,6 @@ ls.length = 24
 
 
   * filename = input299.txt
-ls.length = 4
-ls.length = 39
-ls.length = 55
-ls.length = 4
-ls.length = 170
-ls.length = 156
-ls.length = 286
-ls.length = 30
-ls.length = 4
-ls.length = 6
-ls.length = 16
-ls.length = 87
-ls.length = 144
-ls.length = 45
-ls.length = 66
-ls.length = 45
-ls.length = 114
-ls.length = 231
-ls.length = 79
-ls.length = 21
-ls.length = 121
-ls.length = 4
-ls.length = 4
-ls.length = 17
-ls.length = 4
-ls.length = 33
-ls.length = 68
-ls.length = 131
-ls.length = 76
-ls.length = 75
-ls.length = 4
-ls.length = 4
-ls.length = 32
-ls.length = 123
-ls.length = 209
-ls.length = 4
-ls.length = 73
-ls.length = 25
-ls.length = 85
-ls.length = 28
-ls.length = 4
-ls.length = 31
-ls.length = 4
-ls.length = 15
-ls.length = 9
-ls.length = 127
-ls.length = 4
-ls.length = 4
-ls.length = 98
-ls.length = 50
-ls.length = 77
-ls.length = 18
-ls.length = 50
-ls.length = 176
-ls.length = 137
-ls.length = 210
-ls.length = 69
-ls.length = 53
-ls.length = 4
-ls.length = 51
-ls.length = 47
-ls.length = 284
-ls.length = 252
-ls.length = 171
-ls.length = 286
-ls.length = 36
-ls.length = 108
-ls.length = 96
-ls.length = 124
-ls.length = 118
-ls.length = 253
-ls.length = 10
-ls.length = 60
-ls.length = 18
-ls.length = 180
-ls.length = 240
     - number of entries in student   solution: 44
     - number of entries in reference solution: 6
     - 38 extra entries in student solution, including:
@@ -691,629 +391,9 @@ ls.length = 240
 
 Test 2a: points from a file with horizontal line segments
   * filename = horizontal5.txt
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
   * filename = horizontal25.txt
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
   * filename = horizontal50.txt
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
   * filename = horizontal75.txt
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 140
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 147
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 139
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
     - number of entries in student   solution: 76
     - number of entries in reference solution: 75
     - 1 extra entry in student solution:
@@ -1321,1965 +401,638 @@ ls.length = 4
 
 
   * filename = horizontal100.txt
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
 ==> FAILED
 
 Test 2b: random horizontal line segments
   *  1 random horizontal line segment
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
-ls.length = 4
+  *  5 random horizontal line segments
+  * 10 random horizontal line segments
+  * 15 random horizontal line segments
+==> passed
+
+Test 3a: points from a file with vertical line segments
+  * filename = vertical5.txt
+  * filename = vertical25.txt
+  * filename = vertical50.txt
+  * filename = vertical75.txt
+  * filename = vertical100.txt
+==> passed
+
+Test 3b: random vertical line segments
+  *  1 random vertical line segment
+  *  5 random vertical line segments
+  * 10 random vertical line segments
+  * 15 random vertical line segments
+==> passed
+
+Test 4a: points from a file with no line segments
+  * filename = random23.txt
+  * filename = random38.txt
+  * filename = random91.txt
+  * filename = random152.txt
+==> passed
+
+Test 4b: random points with no line segments
+  *  5 random points
+  * 10 random points
+  * 20 random points
+  * 50 random points
+==> passed
+
+Test 5a: points from a file with 5 or more on some line segments
+  * filename = input9.txt
+  * filename = input10.txt
+  * filename = input20.txt
+    - number of entries in student   solution: 12
+    - number of entries in reference solution: 5
+    - 7 extra entries in student solution, including:
+      '(4096, 23040) -> (8192, 29184)'
 
 
-...
+  * filename = input50.txt
+    - number of entries in student   solution: 45
+    - number of entries in reference solution: 7
+    - 38 extra entries in student solution, including:
+      '(1000, 26000) -> (23000, 29000)'
 
-WARNING: the grading output was truncated due to excessive length.
-Typically, this is because you have a method that has an unanticipated side effect
-(such as printing to standard output or throwing an exception). A large amount of output
-can also arise from failing many tests.
+
+  * filename = input80.txt
+    - number of entries in student   solution: 150
+    - number of entries in reference solution: 31
+    - 119 extra entries in student solution, including:
+      '(25000, 27000) -> (0, 30000)'
+
+
+  * filename = input300.txt
+    - number of entries in student   solution: 45
+    - number of entries in reference solution: 6
+    - 39 extra entries in student solution, including:
+      '(1200, 19450) -> (25450, 31400)'
+
+
+  * filename = inarow.txt
+==> FAILED
+
+Test 5b: points from a file with 5 or more on some line segments
+  * filename = kw1260.txt
+    - number of entries in student   solution: 387
+    - number of entries in reference solution: 288
+    - 99 extra entries in student solution, including:
+      '(20278, 19471) -> (7216, 20010)'
+
+
+  * filename = rs1423.txt
+    - number of entries in student   solution: 522
+    - number of entries in reference solution: 443
+    - 79 extra entries in student solution, including:
+      '(16494, 18510) -> (3273, 19095)'
+
+
+==> FAILED
+
+Test 6: points from a file with fewer than 4 points
+  * filename = input1.txt
+  * filename = input2.txt
+  * filename = input3.txt
+==> passed
+
+Test 7: check for dependence on either compareTo() or compare()
+        returning { -1, +1, 0 } instead of { negative integer,
+        positive integer, zero }
+  * filename = equidistant.txt
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 5: (10000, 0) -> (2000, 8000)
+    - reference segment 1: (10000, 0) -> (8000, 2000) -> (2000, 8000) -> (0, 10000)
+
+    - number of entries in student   solution: 8
+    - number of entries in reference solution: 4
+    - 4 extra entries in student solution, including:
+      '(30000, 0) -> (0, 10000)'
+
+
+  * filename = input40.txt
+    - number of entries in student   solution: 20
+    - number of entries in reference solution: 4
+    - 17 extra entries in student solution, including:
+      '(4000, 26000) -> (2000, 29000)'
+
+    - 1 missing entry in student solution:
+      '(1000, 17000) -> (13000, 17000) -> (17000, 17000) -> (29000, 17000)'
+
+
+  * filename = input48.txt
+    - number of entries in student   solution: 38
+    - number of entries in reference solution: 6
+    - 32 extra entries in student solution, including:
+      '(1000, 26000) -> (23000, 29000)'
+
+
+  * filename = input299.txt
+    - number of entries in student   solution: 44
+    - number of entries in reference solution: 6
+    - 38 extra entries in student solution, including:
+      '(1200, 19450) -> (25450, 31400)'
+
+
+==> FAILED
+
+Test 8: check for fragile dependence on return value of toString()
+  * filename = equidistant.txt
+    - number of entries in student   solution: 1
+    - number of entries in reference solution: 4
+    - 3 missing entries in student solution, including:
+      '(30000, 0) -> (20000, 10000) -> (10000, 20000) -> (0, 30000)'
+
+
+  * filename = input40.txt
+    - number of entries in student   solution: 1
+    - number of entries in reference solution: 4
+    - 1 extra entry in student solution:
+      '(19000, 2000) -> (29000, 17000)'
+
+    - 4 missing entries in student solution, including:
+      '(2000, 29000) -> (4000, 29000) -> (22000, 29000) -> (28000, 29000)'
+
+
+  * filename = input48.txt
+    - number of entries in student   solution: 1
+    - number of entries in reference solution: 6
+    - 1 extra entry in student solution:
+      '(11000, 21000) -> (26000, 27000)'
+
+    - 6 missing entries in student solution, including:
+      '(1000, 26000) -> (9000, 26000) -> (11000, 26000) -> (18000, 26000)'
+
+
+
+It is bad style to write code that depends on the particular format of
+the output from the toString() method, especially if your reason for
+doing so is to circumvent the public API (which intentionally does not
+provide access to the x- and y-coordinates).
+
+==> FAILED
+
+Test 9: random line segments, none vertical or horizontal
+  *  1 random line segment
+  *  5 random line segments
+  * 25 random line segments
+  * 50 random line segments
+    - number of entries in student   solution: 52
+    - number of entries in reference solution: 50
+    - 2 extra entries in student solution, including:
+      '(7248, 1) -> (15302, 23530)'
+
+
+    - failed on trial 3 of 15
+
+  * 100 random line segments
+    - number of entries in student   solution: 102
+    - number of entries in reference solution: 100
+    - 2 extra entries in student solution, including:
+      '(283, 10132) -> (19495, 15345)'
+
+
+    - failed on trial 2 of 2
+
+==> FAILED
+
+Test 10: random line segments
+  *  1 random line segment
+  *  5 random line segments
+  * 25 random line segments
+    - number of entries in student   solution: 27
+    - number of entries in reference solution: 25
+    - 2 extra entries in student solution, including:
+      '(2196, 5050) -> (15016, 9252)'
+
+
+    - failed on trial 31 of 100
+
+  * 50 random line segments
+    - number of entries in student   solution: 51
+    - number of entries in reference solution: 50
+    - 1 extra entry in student solution:
+      '(8999, 1018) -> (12613, 15443)'
+
+
+    - failed on trial 10 of 15
+
+  * 100 random line segments
+==> FAILED
+
+Test 11: random distinct points in a given range
+  * 5 random points in a 10-by-10 grid
+    - number of entries in student   solution: 1
+    - number of entries in reference solution: 0
+    - 1 extra entry in student solution:
+      '(4, 4) -> (9, 9)'
+
+
+    - failed on trial 91 of 500
+     5
+         3     9
+         6     9
+         9     9
+         8     8
+         4     4
+
+  * 10 random points in a 10-by-10 grid
+    - number of entries in student   solution: 1
+    - number of entries in reference solution: 0
+    - 1 extra entry in student solution:
+      '(5, 0) -> (8, 9)'
+
+
+    - failed on trial 1 of 500
+     10
+         0     3
+         7     8
+         8     9
+         7     3
+         6     8
+         7     4
+         6     0
+         5     0
+         1     1
+         5     8
+
+  * 50 random points in a 10-by-10 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 19: (0, 1) -> (0, 4)
+    - reference segment 30: (0, 1) -> (0, 2) -> (0, 3) -> (0, 4) -> (0, 7) -> (0, 9)
+
+    - number of entries in student   solution: 109
+    - number of entries in reference solution: 38
+    - 71 extra entries in student solution, including:
+      '(6, 7) -> (2, 9)'
+
+
+    - failed on trial 1 of 100
+
+  * 90 random points in a 10-by-10 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 65: (9, 7) -> (9, 9)
+    - reference segment 131: (9, 0) -> (9, 1) -> (9, 2) -> (9, 3) -> (9, 4) -> (9, 5) -> (9, 6) -> (9, 7) -> (9, 8) -> (9, 9)
+
+    - number of entries in student   solution: 321
+    - number of entries in reference solution: 132
+    - 189 extra entries in student solution, including:
+      '(9, 7) -> (9, 9)'
+
+
+    - failed on trial 1 of 50
+
+  * 200 random points in a 50-by-50 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 552: (10, 32) -> (12, 36)
+    - reference segment 188: (0, 12) -> (10, 32) -> (11, 34) -> (12, 36) -> (15, 42)
+
+    - number of entries in student   solution: 1028
+    - number of entries in reference solution: 237
+    - 794 extra entries in student solution, including:
+      '(44, 45) -> (0, 47)'
+
+    - 3 missing entries in student solution, including:
+      '(4, 46) -> (8, 46) -> (15, 46) -> (22, 46) -> (26, 46)'
+
+
+    - failed on trial 1 of 10
+
+==> FAILED
+
+Test 12: m*n points on an m-by-n grid
+  * 3-by-3 grid
+    - number of entries in student   solution: 4
+    - number of entries in reference solution: 0
+    - 4 extra entries in student solution, including:
+      '(2, 0) -> (2, 2)'
+
+
+  * 4-by-4 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 14: (0, 0) -> (0, 2)
+    - reference segment 6: (0, 0) -> (0, 1) -> (0, 2) -> (0, 3)
+
+    - number of entries in student   solution: 18
+    - number of entries in reference solution: 10
+    - 8 extra entries in student solution, including:
+      '(3, 1) -> (3, 3)'
+
+
+  * 5-by-5 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 11: (4, 1) -> (4, 3)
+    - reference segment 15: (4, 0) -> (4, 1) -> (4, 2) -> (4, 3) -> (4, 4)
+
+    - number of entries in student   solution: 35
+    - number of entries in reference solution: 16
+    - 19 extra entries in student solution, including:
+      '(4, 2) -> (4, 4)'
+
+
+  * 10-by-10 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 37: (8, 6) -> (9, 8)
+    - reference segment 123: (5, 0) -> (6, 2) -> (7, 4) -> (8, 6) -> (9, 8)
+
+    - number of entries in student   solution: 374
+    - number of entries in reference solution: 154
+    - 220 extra entries in student solution, including:
+      '(9, 7) -> (9, 9)'
+
+
+  * 20-by-20 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 84: (0, 10) -> (0, 12)
+    - reference segment 2426: (0, 0) -> (0, 1) -> (0, 2) -> (0, 3) -> (0, 4) -> (0, 5) -> (0, 6) -> (0, 7) -> (0, 8) -> (0, 9) -> (0, 10) -> (0, 11) -> (0, 12) -> (0, 13) -> (0, 14) -> (0, 15) -> (0, 16) -> (0, 17) -> (0, 18) -> (0, 19)
+
+    - number of entries in student   solution: 6038
+    - number of entries in reference solution: 2446
+    - 3716 extra entries in student solution, including:
+      '(19, 17) -> (19, 19)'
+
+    - 124 missing entries in student solution, including:
+      '(16, 15) -> (12, 16) -> (8, 17) -> (4, 18) -> (0, 19)'
+
+
+  * 5-by-4 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 12: (0, 0) -> (0, 2)
+    - reference segment 8: (0, 0) -> (0, 1) -> (0, 2) -> (0, 3)
+
+    - number of entries in student   solution: 24
+    - number of entries in reference solution: 13
+    - 11 extra entries in student solution, including:
+      '(4, 1) -> (4, 3)'
+
+
+  * 6-by-4 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 9: (5, 0) -> (5, 2)
+    - reference segment 15: (5, 0) -> (5, 1) -> (5, 2) -> (5, 3)
+
+    - number of entries in student   solution: 34
+    - number of entries in reference solution: 16
+    - 19 extra entries in student solution, including:
+      '(5, 1) -> (5, 3)'
+
+    - 1 missing entry in student solution:
+      '(1, 0) -> (2, 1) -> (3, 2) -> (4, 3)'
+
+
+  * 10-by-4 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 1: (9, 1) -> (9, 3)
+    - reference segment 37: (9, 0) -> (9, 1) -> (9, 2) -> (9, 3)
+
+    - number of entries in student   solution: 76
+    - number of entries in reference solution: 38
+    - 38 extra entries in student solution, including:
+      '(9, 1) -> (9, 3)'
+
+
+  * 15-by-4 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 48: (14, 1) -> (14, 3)
+    - reference segment 78: (14, 0) -> (14, 1) -> (14, 2) -> (14, 3)
+
+    - number of entries in student   solution: 154
+    - number of entries in reference solution: 79
+    - 75 extra entries in student solution, including:
+      '(14, 1) -> (14, 3)'
+
+
+  * 25-by-4 grid
+    - segments() contains a subsegment of a segment in reference solution
+    - student   segment 19: (0, 0) -> (0, 2)
+    - reference segment 188: (0, 0) -> (0, 1) -> (0, 2) -> (0, 3)
+
+    - number of entries in student   solution: 409
+    - number of entries in reference solution: 213
+    - 196 extra entries in student solution, including:
+      '(24, 1) -> (24, 3)'
+
+
+==> FAILED
+
+Test 13: check that data type is immutable by testing whether each method
+         returns the same value, regardless of any intervening operations
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 14: check that data type does not mutate the constructor argument
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 15: numberOfSegments() is consistent with segments()
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = horizontal5.txt
+  * filename = vertical5.txt
+  * filename = random23.txt
+==> passed
+
+Test 16: throws an exception if either constructor argument is null
+         or any entry in array is null
+  * argument is null
+    - constructor throws wrong exception
+    - constructor throws a java.lang.NullPointerException
+    - constructor should throw a java.lang.IllegalArgumentException
+     0
+
+  * Point[] of length 10, number of null entries = 1
+  * Point[] of length 10, number of null entries = 10
+  * Point[] of length 4, number of null entries = 1
+  * Point[] of length 3, number of null entries = 1
+  * Point[] of length 2, number of null entries = 1
+  * Point[] of length 1, number of null entries = 1
+==> FAILED
+
+Test 17: check that the constructor throws an exception if duplicate points
+  * 50 points
+    - failed on trial 1 of 5
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+
+  * 25 points
+    - failed on trial 1 of 10
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+
+  * 5 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+     5
+     11168  2532
+     16260 20140
+      5249 10893
+     29639  4716
+     11168  2532
+
+  * 4 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+     4
+     25536 24091
+     30800   296
+     28187  4465
+     30800   296
+
+  * 3 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+     3
+     31642  7966
+     21741 31999
+     31642  7966
+
+  * 2 points
+    - failed on trial 1 of 100
+    - constructor fails to throw a java.lang.IllegalArgumentException when passed duplicate points
+
+     2
+       627  3563
+       627  3563
+
+==> FAILED
+
+
+Total: 9/21 tests passed!
+
+
+================================================================
+********************************************************************************
+*  MEMORY
+********************************************************************************
+
+Analyzing memory of Point
+*-----------------------------------------------------------
+Running 1 total tests.
+
+The maximum amount of memory per Point object is 32 bytes.
+
+Student memory = 24 bytes (passed)
+
+Total: 1/1 tests passed!
+
+
+================================================================
+
+
+
+********************************************************************************
+*  TIMING
+********************************************************************************
+
+Timing BruteCollinearPoints
+*-----------------------------------------------------------
+Running 10 total tests.
+
+Test 1a-1e: Find collinear points among n random distinct points
+
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    16   0.00        3640           0           3640                    0
+=> passed    32   0.00       71920           0          71920                    0
+=> passed    64   0.01     1270752           0        1270752                    0
+=> passed   128   0.08    21336000           0       21336000                    0
+=> passed   256   0.98   349585318           0      349585318                    0
+==> 5/5 tests passed
+
+Test 2a-2e: Find collinear points among n/4 arbitrary line segments
+
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    16   0.00        3730           0           3730                   21
+=> passed    32   0.00       72452           0          72452                   43
+=> passed    64   0.01     1272994           0        1272994                   86
+=> passed   128   0.07    21344642           0       21344642                  174
+=> passed   256   1.18   349617200           0      349617200                  334
+==> 5/5 tests passed
+
+Total: 10/10 tests passed!
+
+
+================================================================
+
+
+
+Timing FastCollinearPoints
+*-----------------------------------------------------------
+Running 31 total tests.
+
+Test 1a-1g: Find collinear points among n random distinct points
+
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.01        8064       18686          45436                    0
+=> passed   128   0.01       32512       88420         209352                    0
+=> passed   256   0.05      130560      414248         959056                    0
+=> passed   512   0.16      523264     1895873        4315010                    0
+=> passed  1024   0.32     2095104     8524551       19144206                    0
+=> passed  2048   0.74     8384512    37945897       84276306                13114
+==> 6/6 tests passed
+
+lg ratio(slopeTo() + 2*compare()) = lg (84276306 / 19144206) = 2.14
+=> passed
+
+==> 7/7 tests passed
+
+Test 2a-2g: Find collinear points among the n points on an n-by-1 grid
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        8064        4764          17592                19564
+=> passed   128   0.00       32512       17796          68104                95004
+=> FAILED   256   0.02      130560       68717         267994               443762   (1.1x)
+=> FAILED   512   0.12      523264      269399        1062062              2044071   (1.4x)
+=> FAILED  1024   0.26     2095104     1065026        4225156              9176280   (1.6x)
+=> FAILED  2048   0.58     8384512     4231214       16846940             40942219   (1.9x)
+=> FAILED  4096   2.45    33546240    16859163       67264566            180646621   (2.1x)
+==> 2/7 tests passed
+
+lg ratio(slopeTo() + 2*compare()) = lg (67264566 / 16846940) = 2.00
+=> passed
+
+==> 3/8 tests passed
+
+Test 3a-3g: Find collinear points among the n points on an n/4-by-4 grid
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.01        8064       17385          42834                 6525
+=> passed   128   0.10       32512       73575         179662                25026
+=> passed   256   1.50      130560      280949         692458                85858
+=> passed   512  24.23      523264     1111652        2746568               302338
+Aborting: time limit of 10 seconds exceeded
+
+Test 4a-4g: Find collinear points among the n points on an n/8-by-8 grid
+
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        8064       18591          45246                 7341
+=> passed   128   0.08       32512       87182         206876                29509
+=> passed   256   1.17      130560      383302         897164               119554
+=> passed   512  17.76      523264     1614976        3753216               448338
+Aborting: time limit of 10 seconds exceeded
+
+Total: 16/31 tests passed!
+
+
+================================================================
