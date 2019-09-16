@@ -59,7 +59,7 @@ public class FastCollinearPoints {
         }
         else {
             for (Node i = head; i != null; i = i.next) {
-                if (i.segment().toString().equals(node.segment().toString())) {
+                if (i.p.compareTo(node.p) == 0 && i.q.compareTo(node.q) == 0) {
                     return;
                 }
             }
