@@ -13,21 +13,15 @@ public class BruteCollinearPoints {
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) throw new IllegalArgumentException();
-        Point[] aux = new Point[4];
-
         for (int i = 0; i < points.length - 3; i++) {
-            aux[0] = points[i];
             for (int j = i + 1; j < points.length - 2; j++) {
-                aux[1] = points[j];
                 for (int k = j + 1; k < points.length - 1; k++) {
-                    aux[2] = points[k];
                     for (int l = k + 1; l < points.length; l++) {
-                        aux[3] = points[l];
-                        if (aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[2])
-                                && aux[0].slopeTo(aux[1]) == aux[0].slopeTo(aux[3])) {
+                        if (points[i].slopeTo(points[j]) == points[i].slopeTo(points[k])
+                                && points[i].slopeTo(points[j]) == points[i].slopeTo(points[l])) {
+                            Point[] aux = { points[i], points[j], points[k], points[l] };
                             Arrays.sort(aux);
                             addNode(new Node(new LineSegment(aux[0], aux[3])));
-                            count++;
                         }
                     }
                 }
@@ -41,11 +35,6 @@ public class BruteCollinearPoints {
             head = last = node;
         }
         else {
-            for (Node i = head; i != null; i = i.next) {
-                if (i.segment.toString().equals(node.segment.toString())) {
-                    return;
-                }
-            }
             last.next = node;
             last = node;
         }
