@@ -82,19 +82,28 @@ public class FastCollinearPoints {
         if (head == null) {
             return new LineSegment[0];
         }
-        LineSegment[] ans = new LineSegment[count];
+        Node[] ans = new Node[count];
+        int realCount = 0;
         Node node = this.head;
         for (int i = 0; i < ans.length; i++, node = node.next) {
-            if (!segmentExists(node.p, node.q)) {
-                ans[i] = node.segment();
+            if (!segmentExists(ans, node.p, node.q)) {
+                ans[i] = node;
+                realCount++;
             }
         }
-        return ans;
+        LineSegment[] seg = new LineSegment[realCount];
+        int i = 0;
+        for (Node an : ans) {
+            if (an != null) {
+                seg[i++] = an.segment();
+            }
+        }
+        return seg;
     }
 
-    private boolean segmentExists(Point p, Point q) {
-        for (Node i = head; i != null; i = i.next) {
-            if (i.q.compareTo(q) == 0 && i.p.compareTo(p) == 0) {
+    private boolean segmentExists(Node[] ans, Point p, Point q) {
+        for (Node an : ans) {
+            if (an != null && an.q.compareTo(q) == 0 && an.p.compareTo(p) == 0) {
                 return true;
             }
         }
