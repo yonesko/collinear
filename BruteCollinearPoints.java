@@ -75,12 +75,11 @@ public class BruteCollinearPoints {
     }
 
     public LineSegment[] segments() {
-        if (lineSegmentsI != null) {
-            return lineSegmentsI;
+        if (lineSegmentsI == null) {
+            head = last = null;
+            lineSegmentsI = getLineSegmentsI();
         }
-        lineSegmentsI = getLineSegmentsI();
-        head = last = null;
-        return lineSegmentsI;
+        return Arrays.copyOf(lineSegmentsI, lineSegmentsI.length);
     }
 
     private LineSegment[] getLineSegmentsI() {
