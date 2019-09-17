@@ -77,8 +77,8 @@ public class FastCollinearPoints {
 
     public LineSegment[] segments() {
         if (lineSegmentsI == null) {
-            head = last = null;
             lineSegmentsI = getLineSegmentsI();
+            head = last = null;
         }
         return Arrays.copyOf(lineSegmentsI, lineSegmentsI.length);
     }
