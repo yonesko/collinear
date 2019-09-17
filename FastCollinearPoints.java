@@ -60,11 +60,6 @@ public class FastCollinearPoints {
             head = last = node;
         }
         else {
-            for (Node i = head; i != null; i = i.next) {
-                if (i.p.compareTo(node.p) == 0 && i.q.compareTo(node.q) == 0) {
-                    return;
-                }
-            }
             last.next = node;
             last = node;
         }
