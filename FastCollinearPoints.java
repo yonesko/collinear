@@ -67,7 +67,7 @@ public class FastCollinearPoints {
     }
 
     public int numberOfSegments() {
-        return count;
+        return segments().length;
     }
 
     public LineSegment[] segments() {
