@@ -23,13 +23,16 @@ public class BruteCollinearPoints {
         validate(points);
         for (int i = 0; i < points.length - 3; i++) {
             for (int j = i + 1; j < points.length - 2; j++) {
+                double ijSlope = points[i].slopeTo(points[j]);
                 for (int k = j + 1; k < points.length - 1; k++) {
-                    for (int l = k + 1; l < points.length; l++) {
-                        if (points[i].slopeTo(points[j]) == points[i].slopeTo(points[k])
-                                && points[i].slopeTo(points[j]) == points[i].slopeTo(points[l])) {
-                            Point[] aux = { points[i], points[j], points[k], points[l] };
-                            Arrays.sort(aux);
-                            addNode(new Node(new LineSegment(aux[0], aux[3])));
+                    double ikSlope = points[i].slopeTo(points[k]);
+                    if (ijSlope == ikSlope) {
+                        for (int l = k + 1; l < points.length; l++) {
+                            if (ijSlope == ikSlope && ijSlope == points[i].slopeTo(points[l])) {
+                                Point[] aux = { points[i], points[j], points[k], points[l] };
+                                Arrays.sort(aux);
+                                addNode(new Node(new LineSegment(aux[0], aux[3])));
+                            }
                         }
                     }
                 }

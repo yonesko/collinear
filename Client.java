@@ -37,7 +37,7 @@ public class Client {
             throw new RuntimeException("Dups!");
         }
         // print and draw the line segments
-        FastCollinearPoints collinear = new FastCollinearPoints(points);
+        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
         StdOut.println(collinear.numberOfSegments());
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
